@@ -1,0 +1,8 @@
+name: CustomHeightLimit
+main: us.ryanleonard.bukkit.CustomHeightLimit.CustomHeightLimit
+version: 0.1
+
+permissions:
+	CustomHeightLimit.nolimit:
+		description: Removes the height limit for a player
+		default: op
