@@ -8,3 +8,4 @@ Heres a list of things we might consider adding.
 Later we will add some way of letting us know what would be most useful to you.
 
 - Allowing specific blocks above the height limit
+- Creating a command to view your current limits (`/myheightlimit`)
