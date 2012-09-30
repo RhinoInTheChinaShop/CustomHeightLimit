@@ -3,15 +3,24 @@ main: us.ryanleonard.bukkit.CustomHeightLimit.CustomHeightLimit
 version: 0.1
 
 permissions:
-	CustomHeightLimit.nolimit.*:
-		description: Removes the height limit for a player.
-		default: op
-		children:
-		- CustomHeightLimit.nolimit.max
-		- CustomHeightLimit.nolimit.min
-	CustomHeightLimit.nolimit.max:
-		description: Removes the maximum height limit for a player.
-		default: op
-	CustomHeightLimit.nolimit.min:
-		description: Removes the minimum depth limit for a player.
-		default: op
+  CustomHeightLimit.nolimit.*:
+    description: Removes the height limit for a player.
+    default: op
+    children:
+    - CustomHeightLimit.nolimit.max
+    - CustomHeightLimit.nolimit.min
+  CustomHeightLimit.nolimit.max:
+    description: Removes the maximum height limit for a player.
+    default: op
+  CustomHeightLimit.nolimit.min:
+    description: Removes the minimum depth limit for a player.
+    default: op
+  CustomHeightLimit.reloadConfig:
+    description: Allows the player to reload the height limit config and player permissions
+    default: op
+
+commands:
+  reloadHeightLimit:
+    description: Reload the custom height limit config and permissions
+    usage: /<command>
+    permission: CustomHeightLimit.reloadConfig
