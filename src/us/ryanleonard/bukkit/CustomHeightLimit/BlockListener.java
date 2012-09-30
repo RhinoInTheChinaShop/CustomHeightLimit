@@ -1,5 +1,7 @@
 package us.ryanleonard.bukkit.CustomHeightLimit;
 
+import java.util.logging.Level;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,6 +36,10 @@ public class BlockListener implements Listener {
 				player.sendMessage("You are not allowed to place a block here due to height restrictions.");
 			}
 			event.setCancelled(true);
+		}
+		if(this.plugin.getConfig().getBoolean("enableLogging", true)) {
+			String allowed = allowPlace ? "allowed" : "denied";
+			this.plugin.getLogger().log(Level.INFO, "Block placement event cought by CustomHeightLimit.  A block placed by " + player.getName() + " at a height of " + blockHeight + " was " + allowed + ".");
 		}
 	}
 }

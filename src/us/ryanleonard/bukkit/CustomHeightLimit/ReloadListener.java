@@ -15,6 +15,7 @@ public class ReloadListener implements CommandExecutor {
 			return false;
 		}
 		this.plugin.reloadConfig();
+		player.sendMessage("CustomHeightLimit config reloaded.  Changes will affect players the next time they login.");
 		/*
 		 * Currently this only reloads the config.
 		 * A loop should be added to reload the max/min values for each player.

@@ -1,5 +1,7 @@
 package us.ryanleonard.bukkit.CustomHeightLimit;
 
+import java.util.logging.Level;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,32 +21,36 @@ public class LoginListener implements Listener {
 		int groundMin = this.plugin.getConfig().getInt("groundLimit.min");
 		int skyMax = this.plugin.getConfig().getInt("skyLimit.max");
 		int skyMin = this.plugin.getConfig().getInt("skyLimit.min");
-		if(player.hasPermission("CustomHeightLimit.nolimit.min")) {
-			player.setMetadata("CustomHeightLimitMin", new FixedMetadataValue(this.plugin, -1));
+		int skyLimit = 0;
+		int groundLimit = 0;
+		if(player.hasPermission("CustomHeightLimit.nolimit.max")) {
+			player.setMetadata("CustomHeightLimitMax", new FixedMetadataValue(this.plugin, -1));
+			skyLimit = -1;
 		}
 		else {
 			/*
 			 * The highest sky limit set will be used for the max
 			 */
-			int limit = 0;
 			for(int i = 0; i < skyMax - skyMin; i++) {
 				if(player.hasPermission("CustomHeightLimit.skyLimit."+(skyMin+i))) {
-					limit = skyMin + i;
+					skyLimit = skyMin + i;
 				}
 			}
-			player.setMetadata("CustomHeightLimitMin", new FixedMetadataValue(this.plugin, limit));
+			player.setMetadata("CustomHeightLimitMin", new FixedMetadataValue(this.plugin, skyLimit));
 		}
-		if(player.hasPermission("CustomHeightLimit.nolimit.max")) {
-			player.setMetadata("CustomHeightLimitMax", new FixedMetadataValue(this.plugin, -1));
+		if(player.hasPermission("CustomHeightLimit.nolimit.min")) {
+			player.setMetadata("CustomHeightLimitMin", new FixedMetadataValue(this.plugin, -1));
 		}
 		else {
-			int limit = 0;
 			for(int i = groundMax; i > groundMin; i--) {
 				if(player.hasPermission("CustomHeightLimit.groundLimit." + (groundMax-i))) {
-					limit = skyMin + i;
+					groundLimit = skyMin + i;
 				}
 			}
-			player.setMetadata("CustomHeightLimitMin", new FixedMetadataValue(this.plugin, limit));
+			player.setMetadata("CustomHeightLimitMin", new FixedMetadataValue(this.plugin, groundLimit));
+		}
+		if(this.plugin.getConfig().getBoolean("enableLogging", true)) {
+			this.plugin.getLogger().log(Level.INFO, "Player login cought by CustomHeightLimit.  " + player.getName() + " logged in, and has a sky limit of " + skyLimit + "and a ground limit of " + groundLimit);
 		}
 	}
 }
